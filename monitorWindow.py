@@ -4,10 +4,13 @@
 
 from time import sleep
 import RPi.GPIO as io
+
+#parameters
+window_SENSOR = 23  	# window sensor connected to GPIO23 pin 16 
+checkInterval = 10		# how frequent to check the status in seconds
      
 io.setmode (io.BCM)
 windowState = False 	# Set the initial window State to closed
-window_SENSOR = 23  	# window sensor connected to GPIO23 pin 16 
 windowActive = False 	# State window sensor
 
 io.setup(window_SENSOR, io.IN, pull_up_down=io.PUD_UP) # Setup the GPIO pin connected to the window Sensor to read as input 
@@ -30,7 +33,7 @@ while True:
 				print("window is open!")
             
         # Wait a while before checking again.
-		sleep(10)
+		sleep(checkInterval)
      
 	except KeyboardInterrupt:
 		io.cleanup() # Clean up GPIO on CTRL+C exit
